@@ -3,10 +3,11 @@
 [![CI](https://github.com/libvips/lua-vips/workflows/CI/badge.svg)](https://github.com/libvips/lua-vips/actions)
 
 This is a Lua binding for the [libvips image processing
-library](http://libvips.github.io/libvips).  libvips
-is a [fast image processing library with low memory
-needs](https://github.com/jcupitt/lua-vips-bench).  `lua-vips` uses ffi
-and needs luajit 2.0 or later.
+library](http://libvips.github.io/libvips). libvips is a [fast image processing library with low memory
+needs](https://github.com/jcupitt/lua-vips-bench).  
+`lua-vips` uses ffi and needs either Lua >= 5.1 or luajit 2.0 or later. 
+This fork aims to fully support Lua 5.3 and 5.4. Currently most testing is
+done with Lua 5.3.6.
 
 The libvips documentation includes a
 handy searchable table of [every operation in
@@ -14,16 +15,27 @@ libvips](http://libvips.github.io/libvips/API/current/func-list.html). This
 is a good place to check if it supports some feature you need. Read on to
 see how to call libvips operations.
 
-# Example
+# Installation
 
-[Install the libvips shared
-library](https://libvips.github.io/libvips/install.html), then install this rock with:
-	
+The C foreign function interface `ffi` needed for `lua-vips` is built into luajit. 
+There is a version `luaffifb` of `ffi` that works with pure Lua. In order for 
+`lua-vips` to run we need the fork https://github.com/rolandlo/luaffifb. 
+The following steps should get you a `luaffifb` and `lua-vips` installation on 
+Linux that have been shown to work with Lua 5.3.6:
+
 ```shell
-luarocks install lua-vips
+git clone https://github.com/rolandlo/luaffifb
+cd luaffifb
+sudo luarocks make
+
+cd ..
+
+git clone --branch fix-lua-5.3 https://github.com/rolandlo/lua-vips
+cd lua-vips
+sudo luarocks make
 ```
 
-Example:
+# Example
 
 ```lua
 local vips = require "vips"

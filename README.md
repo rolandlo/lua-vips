@@ -7,7 +7,7 @@ library](http://libvips.github.io/libvips). libvips is a [fast image processing 
 needs](https://github.com/jcupitt/lua-vips-bench).  
 `lua-vips` uses ffi and needs either Lua >= 5.1 or luajit 2.0 or later. 
 This fork aims to fully support Lua 5.3 and 5.4. Currently most testing is
-done with Lua 5.3.6.
+done with Lua 5.3.6 and to a lesser degree with Lua 5.4.4.
 
 The libvips documentation includes a
 handy searchable table of [every operation in
@@ -21,19 +21,21 @@ The C foreign function interface `ffi` needed for `lua-vips` is built into luaji
 There is a version `luaffifb` of `ffi` that works with pure Lua. In order for 
 `lua-vips` to run we need the fork https://github.com/rolandlo/luaffifb. 
 The following steps should get you a `luaffifb` and `lua-vips` installation on 
-Linux that have been shown to work with Lua 5.3.6:
+Linux that have been shown to work with Lua 5.3.6 and Lua 5.4.4 on Linux 
+(after installing `luarocks` and the development versions of `lua` and `libvips`):
 
 ```shell
 git clone https://github.com/rolandlo/luaffifb
 cd luaffifb
-sudo luarocks make
+sudo luarocks --lua-version=<version> make
 
 cd ..
 
 git clone --branch fix-lua-5.3 https://github.com/rolandlo/lua-vips
 cd lua-vips
-sudo luarocks make
+sudo luarocks --lua-version=<version> make
 ```
+where you replace `<version>` by either 5.3 or 5.4.
 
 # Example
 
